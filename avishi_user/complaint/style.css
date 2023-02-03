@@ -1,17 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700|Source+Sans+Pro:300,600");
-@import url("https://kit.fontawesome.com/251590f28b.css");
 
 body {
 	font-family: "Lato", sans-serif;
 	height: 100%;
-	width: 100%;
-	position: fixed;
+	width: 100%
+		/* position: fixed; */
 }
 
 .ntsflogo {
 	height: 75px;
 	width: 125px;
-	margin-left: -30px;
 }
 
 .dashboto-logo p:nth-child(2) {
@@ -31,10 +29,6 @@ body {
 	height: 100vh;
 	padding: 0px 2%;
 	float: left;
-}
-
-.logo {
-	margin-left: 2px;
 }
 
 button {
@@ -65,7 +59,7 @@ button {
 	font-size: 1.2em;
 }
 
-.menu a:nth-child(3) {
+.menu a:first-child {
 	color: #14abfa;
 }
 
@@ -164,7 +158,7 @@ button {
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
 
 .formbody {
-	background-color: #edebeb;
+	background-color: #bbbbbb;
 	font-family: 'Open Sans', sans-serif;
 	display: flex;
 	align-items: center;
@@ -178,24 +172,18 @@ button {
 	border-radius: 5px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
-	width: 500px;
+	width: 400px;
 	max-width: 100%;
-	margin-top: -50px;
-	height: 500px;
-	overflow-y: auto;
-
 }
 
 .formHeader {
 	border-bottom: 1px solid #f0f0f0;
 	background-color: #f7f7f7;
 	padding: 20px 40px;
-	position: sticky;
 }
 
 .formHeader h2 {
 	margin: 0;
-	position: sticky;
 }
 
 .form {
@@ -342,8 +330,6 @@ button {
 		right: 0;
 	}
 }
-
-/* CSS for add complaint form */
 
 #cancel-button {
 	background: #B2BEB5;
