@@ -19,7 +19,7 @@ form.addEventListener('submit', e => {
 //Checking whether data already exisiting
 
 document.getElementById('police_id').addEventListener('blur', function(){
-    console.log('came until js function for event listener');
+    console.log('came until js function for event listener of policeID blue');
     let police_idValue = police_id.value.trim();
     if(police_idValue !== ''){
         checkPolicemanPolice_ID(police_idValue);
@@ -27,7 +27,7 @@ document.getElementById('police_id').addEventListener('blur', function(){
 });
 
 document.getElementById('nic').addEventListener('blur', function(){
-    console.log('came until js function for event listener');
+    console.log('came until js function for event listener of NIC blure');
     let nicValue = nic.value.trim();
     if(nicValue !== ''){
         checkPolicemanNic(nicValue);
@@ -35,7 +35,7 @@ document.getElementById('nic').addEventListener('blur', function(){
 });
 
 document.getElementById('mobile_number').addEventListener('blur', function(){
-    console.log('came until js function for event listener');
+    console.log('came until js function for event listener of mobilenumber blur');
     let mobile_numberValue = mobile_number.value.trim();
     if(mobile_numberValue !== ''){
         checkPolicemanMobile_Number(mobile_numberValue);
@@ -43,7 +43,7 @@ document.getElementById('mobile_number').addEventListener('blur', function(){
 });
 
 document.getElementById('email').addEventListener('blur', function(){
-    console.log('came until js function for event listener');
+    console.log('came until js function for event listener of email blur');
     let emailValue = email.value.trim();
     if(emailValue !== ''){
         checkPolicemanEmail(emailValue);
@@ -174,8 +174,9 @@ function checkInputs() {
     }
 
     if(flagName === 0 && flagPolice_ID === 0 && flagNic === 0 && flagMobile_Number === 0 && flagEmail === 0 && flagRank === 0 && flagPolice_Station === 0){
+        console.log('came until js function for event listener of submit button');
         console.log(nameValue, police_idValue, nicValue, mobile_numberValue, emailValue, rankValue, police_stationValue);
-        addPoliceman(nameValue, police_idValue, nicValue, mobile_numberValue, emailValue, rankValue, police_stationValue)
+        addPoliceman(nameValue, police_idValue, nicValue, mobile_numberValue, emailValue, rankValue, police_stationValue);
     }
     else{
         return false;
@@ -329,6 +330,7 @@ function createOptionspolice_station() {
 
 const addPoliceman = function(name, police_id, nic, mobile_number, email,  rank, police_station)
 {
+    console.log('came until js function for addPoliceman which sends data to backend');
     console.log(name);
     console.log(police_id);
     console.log(nic);
@@ -345,7 +347,7 @@ const addPoliceman = function(name, police_id, nic, mobile_number, email,  rank,
             addPolicemanData(this);
         }
     }
-    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/addPoliceman", true);
+    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/policeman", true);
     httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     httpReq.send("action=addPoliceman" + "&name=" + name + "&police_id=" + police_id + "&nic=" + nic + "&mobile_number=" + mobile_number + "&email=" + email + "&rank=" + rank + "&police_station=" + police_station);
 
@@ -381,7 +383,7 @@ const checkPolicemanPolice_ID = function(police_id) //Returns true if duplicate 
         }
     }
 
-    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/addPoliceman", true);
+    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/policeman", true);
     httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     httpReq.send("action=checkPoliceman_ID" + "&police_id=" + police_id);
 
@@ -430,7 +432,7 @@ const checkPolicemanNic = function(nic) //Returns true if duplicate data exists
         }
     }
 
-    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/addPoliceman", true);
+    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/policeman", true);
     httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     httpReq.send("action=checkNIC" + "&nic=" + nic);
 
@@ -478,7 +480,7 @@ const checkPolicemanMobile_Number = function(mobile_number) //Returns true if du
         }
     }
 
-    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/addPoliceman", true);
+    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/policeman", true);
     httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     httpReq.send("action=checkMobile_Number" + "&mobile_number=" + mobile_number);
 
@@ -526,7 +528,7 @@ const checkPolicemanEmail = function(email) //Returns true if duplicate data exi
         }
     }
 
-    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/addPoliceman", true);
+    httpReq.open("POST", "http://localhost:8080/ntsf_backend_war/policeman", true);
     httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     httpReq.send("action=checkEmail" + "&email=" + email);
 

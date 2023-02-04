@@ -11,32 +11,32 @@ const loadPolicemanDetails = function()
         }
     }
     
-    httpreq.open("POST", "http://localhost:8080/ntsf_backend_war/viewPoliceman", true);
+    httpreq.open("POST", "http://localhost:8080/ntsf_backend_war/policeStation", true);
     httpreq.setRequestHeader("Content-type", "application/x-www-form-urlencoded" );
-    httpreq.send("action=viewPoliceman");
+    httpreq.send("action=viewPoliceStation");
 
     function completeLoad(httpreq)
     {
-        let jsonPolicemanData = JSON.parse(httpreq.responseText);
-        console.log(jsonPolicemanData);
+        let jsonPoliceStationData = JSON.parse(httpreq.responseText);
+        console.log(jsonPoliceStationData);
 
-        if(jsonPolicemanData.serverResponse === "null session" || jsonPolicemanData.serverResponse === "Not Allowed")
+        if(jsonPoliceStationData.serverResponse === "null session" || jsonPoliceStationData.serverResponse === "Not Allowed")
         {
             window.location.href = "http://localhost:8080/ntsf_backend_war/login"; //Redirect to login page
             console.log("Redirecting to login page");
         }
-        else if(jsonPolicemanData.serverResponse === "Allowed")
+        else if(jsonPoliceStationData.serverResponse === "Allowed")
         {
             console.log("Allowed");
                     
-            const policemanData = document.getElementById("policemanData");
-            policemanData.innerHTML = "";
+            const policestationData = document.getElementById("policestationData");
+            policestationData.innerHTML = "";
 
-            let count =  jsonPolicemanData.List.length - 1;
+            let count =  jsonPoliceStationData.List.length - 1;
             for(i=0; i<= count; i++)
             {
-                policemanDataHTMLoutput(jsonPolicemanData.List[i].name, jsonPolicemanData.List[i].police_id,
-                jsonPolicemanData.List[i].nic, jsonPolicemanData.List[i].rank, jsonPolicemanData.List[i].police_station);
+                policestationDataHTMLoutput(jsonPoliceStationData.List[i].branch_name, jsonPoliceStationData.List[i].address,
+                jsonPoliceStationData.List[i].district, jsonPoliceStationData.List[i].province, jsonPoliceStationData.List[i].contact_number, jsonPoliceStationData.List[i].email);
             }
 
         }
@@ -45,16 +45,17 @@ const loadPolicemanDetails = function()
             alert("Something went wrong");
         }
     }
-    return jsonPolicemanData;
+    return jsonPoliceStationData;
 }
 
-function policemanDataHTMLoutput(name, police_id, nic, rank, police_station)
+function policestationDataHTMLoutput(branch_name, address, district, province, contact_number, email)
 {
-    console.log(name);
-    console.log(police_id);
-    console.log(nic);
-    console.log(rank);
-    console.log(police_station);
+    console.log(branch_name);
+    console.log(address);
+    console.log(district);
+    console.log(province);
+    console.log(contact_number);
+    console.log(email);
 
     // create table data row
     var dataRow = table.insertRow();
@@ -63,13 +64,15 @@ function policemanDataHTMLoutput(name, police_id, nic, rank, police_station)
     var dataCell3 = dataRow.insertCell(2);
     var dataCell4 = dataRow.insertCell(3);
     var dataCell5 = dataRow.insertCell(4);
+    var dataCell6 = dataRow.insertCell(5);
 
     //Add content to the table data cells
     dataCell1.innerHTML = name;
-    dataCell2.innerHTML = police_id;
-    dataCell3.innerHTML = nic;
-    dataCell4.innerHTML = rank;
-    dataCell5.innerHTML = police_station;
+    dataCell2.innerHTML = address;
+    dataCell3.innerHTML = district;
+    dataCell4.innerHTML = province;
+    dataCell5.innerHTML = contact_number;
+    dataCell6.innerHTML = email;
     
 }
 
