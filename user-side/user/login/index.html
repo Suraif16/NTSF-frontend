@@ -10,7 +10,12 @@
           href="../resources/css/police/login.css"> -->
     <link rel="stylesheet"
           href="../../resources/css/login.css">
+    <!-- <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> -->
     <title>NTSF</title>
+    <!-- JavaScript code in script.js uses ECMAScript modules -->
+    <script type="module"
+            src="./script.js"></script>
 </head>
 
 <body>
@@ -29,10 +34,13 @@
         </a>
     </div>
 
-
     <div class="wrapper">
-        <form class="login">
-            <p class="title">Login</p>
+        <form class="login"
+              id="login-form"
+              oninput="validateLoginForm()"
+              onsubmit="submitLogin(); return false">
+            <p class="
+              title">Login</p>
             <input type="text"
                    id="nic"
                    placeholder="NIC"
@@ -42,16 +50,18 @@
                    id="password"
                    placeholder="Password" />
             <i class="fa fa-key"></i><br>
+            <!-- <i class="far fa-eye"
+               id="togglePassword"
+               style="margin-right: -30px; cursor: pointer;"></i> -->
             <a href="#">Forgot your password?</a><br><br>
             Don't have an account? <a href="../signup/index.html">Sign Up</a>
-            <button onclick="submitLogin()">
+            <button id="submit-btn"
+                    disabled>
                 <i class="spinner"></i>
                 <span class="state">Log In</span>
             </button>
         </form>
     </div>
-
-    <script src="./script.js"></script>
 </body>
 
 </html>
