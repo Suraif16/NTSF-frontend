@@ -5,7 +5,10 @@ import {
   validateNIC,
   validatePassword,
 } from "/user-side/util/validator.js";
+import { displayMessage } from "/user-side/component/message/script.js";
+import { redirectToLogin } from "/user-side/util/navigation.js";
 
+// JQuery
 var script = document.createElement("script");
 script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
 document.getElementsByTagName("head")[0].appendChild(script);
@@ -56,6 +59,7 @@ window.submitSignup = function submitSignup() {
   });
 
   var settings = {
+    // AJAX request
     url: `http://localhost:8080/ntsf_backend_war/user_signup?${query}`,
     method: "POST",
   };
@@ -64,37 +68,18 @@ window.submitSignup = function submitSignup() {
 };
 
 function signUpSuccessCallback(data) {
-  alert("SignUp successful");
+  // alert("SignUp successful");
 
-  window.location.href = "../login/index.html";
+  console.log("Sign Up Successful");
+
+  displayMessage("Sign Up Successful", true, () => {
+    redirectToLogin();
+  });
 }
 
 function signUpUnsuccessCallback() {
-  alert("Sign Up Unsuccessful!");
+  // alert("SignUp unsuccessful");
+
+  console.log("Sign Up Unsuccessful");
+  displayMessage("Sign Up Unsuccessful", false);
 }
-
-/**
- * Check whether the password and re enter password fields match
- */
-// window.passwordMatch = function passwordsMatch() {
-//   const password = document.getElementById("password").value;
-//   const rePassword = document.getElementById("re-password").value;
-
-//   const inputFields = document
-//     .getElementById("submit-form")
-//     .getElementsByTagName("input");
-
-//   let isAllFilled = true;
-
-//   Array.from(inputFields).forEach((element) => {
-//     if (!element.value) {
-//       isAllFilled = false;
-//     }
-//   });
-
-//   if (password == rePassword && isAllFilled) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };

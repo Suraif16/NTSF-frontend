@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
-          href="./main1.css">
+          href="./style.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet"
@@ -19,8 +19,7 @@
           type="image/x-icon"
           href="/resources/icons/favicon.ico">
     <script type="module"
-            src="./script.js"
-            ;></script>
+            src="./script.js"></script>
 
 </head>
 
@@ -62,9 +61,9 @@
     <!-- Dashboard heading -->
     <div class="dashboard-heading">
         <div class="panel">
-            <div>
-                <p class="profile-username">Avishi Ganepola</p>
-            </div>
+            <a href="../profile/index.html">
+                <p class="profile-username">G.A.A.D. Ganepola</p>
+            </a>
         </div>
     </div>
     <!-- REPEATING -->
@@ -75,64 +74,23 @@
         <div class="tableSection">
 
             <!-- Driver fines table -->
-            <h2>Driver Fines</h2>
             <table class="fines-table"
                    id="table-driver">
-                <tbody>
-                    <div class="tableheading">
-                        <thead>
-                            <th id="fine-no">Fine No</th>
-                            <th id="fine-no">Description</th>
-                            <th id="imposed-date-time">Imposed Date Time</th>
-                            <th id="due-date">Due Date Time</th>
-                            <th id="amount">Fine Amount</th>
-                            <th id="payment-status">Payment Status</th>
-                        </thead>
-                    </div>
-                    <!-- <div id="fineData"></div> -->
-                </tbody>
             </table>
 
             <!-- Vehicle fines table -->
-            <h3>Vehicle Fines</h3>
             <table class="fines-table"
                    id="table-vehicle">
-                <tbody>
-                    <div class="tableheading">
-                        <thead>
-                            <th id="fine-no">Fine No</th>
-                            <th id="fine-no">Description</th>
-                            <th id="imposed-date-time">Imposed Date Time</th>
-                            <th id="due-date">Due Date Time</th>
-                            <th id="amount">Fine Amount</th>
-                            <th id="payment-status">Payment Status</th>
-                        </thead>
-                    </div>
-                    <!-- <div id="fineData"></div> -->
-                </tbody>
             </table>
 
             <!-- Pedestrian fines table -->
-            <h4>Pedestrian Fines</h4>
             <table class="fines-table"
                    id="table-pedestrian">
                 <tbody>
-                    <div class="tableheading">
-                        <thead>
-                            <th id="fine-no">Fine No</th>
-                            <th id="fine-no">Description</th>
-                            <th id="imposed-date-time">Imposed Date Time</th>
-                            <th id="due-date">Due Date Time</th>
-                            <th id="amount">Fine Amount</th>
-                            <th id="payment-status">Payment Status</th>
-                        </thead>
-                    </div>
-                    <!-- <div id="fineData"></div> -->
-                </tbody>
             </table>
         </div>
     </div>
-
+    </div>
 </body>
 
 </html>

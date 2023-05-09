@@ -1,6 +1,9 @@
 import { validateNIC, validatePassword } from "/user-side/util/validator.js";
+import { displayMessage } from "/user-side/component/message/script.js";
+import { redirectToViewFines } from "/user-side/util/navigation.js";
+import { validateInputField } from "/user-side/util/validator.js";
 
-// Adding jquery to the page
+// JQuery
 var script = document.createElement("script");
 script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
 document.getElementsByTagName("head")[0].appendChild(script);
@@ -8,25 +11,6 @@ document.getElementsByTagName("head")[0].appendChild(script);
 // document
 //   .getElementById("login-form")
 //   .addEventListener("oninput", validateLoginForm);
-
-/**
- * Common function for validate the input field
- * @param {string} elementId (`nic | password`)
- * @param {Function}} validateFn (`validateNIC | validatePassword`)
- * @returns if input field is valid
- */
-function validateInputField(elementId, validateFn) {
-  const inputElement = document.getElementById(elementId);
-
-  if (!validateFn(inputElement.value)) {
-    console.log(`Provided ${elementId} is invalid`);
-    inputElement.classList.add("invalid");
-    return false;
-  }
-
-  inputElement.classList.remove("invalid");
-  return true;
-}
 
 /**
  * Validate the login form
@@ -66,30 +50,39 @@ window.submitLogin = function submitLogin() {
 function loginSuccessCallback(data) {
   let userId = null;
   if (data.loggedIn) {
-    alert("Login successful");
-    sessionStorage.setItem("userId", data.userId);
-    // sessionStorage.setItem("jwt", data.jwt);
-    // Retrieve the JWT token from the sessionStorage using the getItem()
-    sessionStorage.setItem("jwt", data.jwt);
-    window.location.href = "/user-side/user/fines/index.html";
+    // alert("Login successful");
+
+    console.log("Login Successful");
+    displayMessage("Login Successful", true, () => {
+      /**
+       * Store the user id and jwt in the session storage
+       */
+      sessionStorage.setItem("userId", data.userId);
+      console.log(data.userId);
+      sessionStorage.setItem("jwt", data.jwt);
+
+      redirectToViewFines();
+    });
   } else {
-    alert("Incorrect nic or password!");
+    displayMessage("Incorrect nic or password!", false);
   }
 }
 
 function loginUnsuccessCallback() {
-  alert("Login Unsuccessful!");
+  // alert("Login Unsuccessful!");
+  console.log("Login Unsuccessful");
+  displayMessage("Login Unsuccessful", false);
 }
 
-// Toggle password visibility
-const togglePassword = document.querySelector("#togglePassword");
-const password = document.querySelector("#id_password");
+// // Toggle password visibility
+// const togglePassword = document.querySelector("#togglePassword");
+// const password = document.querySelector("#id_password");
 
-togglePassword.addEventListener("click", function (e) {
-  // toggle the type attribute
-  const type =
-    password.getAttribute("type") === "password" ? "text" : "password";
-  password.setAttribute("type", type);
-  // toggle the eye slash icon
-  this.classList.toggle("fa-eye-slash");
-});
+// togglePassword.addEventListener("click", function (e) {
+//   // toggle the type attribute
+//   const type =
+//     password.getAttribute("type") === "password" ? "text" : "password";
+//   password.setAttribute("type", type);
+//   // toggle the eye slash icon
+//   this.classList.toggle("fa-eye-slash");
+// });
