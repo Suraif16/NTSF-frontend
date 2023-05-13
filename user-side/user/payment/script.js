@@ -2,6 +2,7 @@
 
 
 import { displayMessage } from "/user-side/component/message/script.js";
+import { displayImageFromSessionStorage } from "/user-side/component/profilePicture/script.js";
 
 /* md5 algorithm */
 // Import the MD5 function from the crypto-js library
@@ -23,6 +24,8 @@ window.addEventListener("load", () => {
   document.getElementById("profile-username").innerHTML =
     sessionStorage.getItem("name");
   
+
+  displayImageFromSessionStorage("profilePicture", "profile-picture-container");
 
   // Get the fine no from the url and set it to the fine no input field
   const urlParams = new URLSearchParams(window.location.search);
