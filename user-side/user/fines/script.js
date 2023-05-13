@@ -4,6 +4,7 @@ import { redirectToAddComplaint } from "/user-side/util/navigation.js";
 import { displayMessage } from "/user-side/component/message/script.js";
 import { redirectToLogin } from "/user-side/util/navigation.js";
 import { displayImageFromSessionStorage } from "/user-side/component/profilePicture/script.js";
+import { redirectToPayment } from "/user-side/util/navigation.js";
 
 // Adding jquery to the page
 var script = document.createElement("script");
@@ -22,16 +23,8 @@ window.addEventListener("load", () => {
   console.log(nic);
 
   if (!getFinesByNic(nic, fineDataHTMLoutput)) {
-    alert("Login Expired");
-
-    // displayMessage(
-    //   "Login Expired",
-    //   true,
-    //   () => {
-    //     redirectToLogin();
-    //   },
-    //   (timeout = 2000)
-    // );
+    alert("Session Expired");
+    // displayMessage("Login Expired", true, () => {});
 
     window.location.href = "/user-side/user/login/index.html";
   }
@@ -62,7 +55,11 @@ function displayFines(finesDataArray, headingText, tableId) {
     const table = createTable(finesDataArray);
 
     // Create table heading
+    // Creates a new div element using the document.createElement method
+    // And assigns it to the variable tableHeading
     const tableHeading = document.createElement("div");
+
+    // Adds the CSS class "tableheading" to the div element using the classList.add method
     tableHeading.classList.add("tableheading");
 
     // Create heading
@@ -91,6 +88,7 @@ function createTable(finesDataArray) {
     "Amount",
     "Demerit Points",
     "Payment Status",
+    "Action",
   ];
 
   headers.forEach((headerText) => {
@@ -100,6 +98,10 @@ function createTable(finesDataArray) {
   });
 
   if (finesDataArray.length > 0) {
+    // Define two types of rows as an array
+    const unpaidRows = [];
+    const paidRows = [];
+
     finesDataArray.forEach(
       ({
         fineNo,
@@ -118,11 +120,50 @@ function createTable(finesDataArray) {
           amount,
           demeritPoints,
           paymentStatus,
+          "",
         ];
 
         cells.forEach((cellData, index) => {
           const cell = row.insertCell();
-          cell.textContent = cellData;
+
+          // Payment status cell
+          if (index === 7) {
+            /*************** UNPAID CONDITION ***************/
+            if (paymentStatus === "unpaid") {
+              /**
+               * Add button "pay" to each UNPAID row
+               */
+              const paymentStatusButton = displayButton(
+                "Pay",
+                "paymentStatusButton",
+                () => {
+                  redirectToPayment(fineNo);
+                },
+                fineNo // Pass the fine number as a parameter to the onClick function
+              );
+              cell.appendChild(paymentStatusButton);
+
+              /**
+               * Add button "Add Complaint" to each UNPAID row
+               */
+              const button = displayButton(
+                "Add Complaint",
+                "addButton",
+                () => {
+                  if (fineNo) redirectToAddComplaint(fineNo);
+                },
+                fineNo // Pass the fine number as a parameter to the onClick function
+              );
+              row.appendChild(
+                button
+              ); /*************** PAID CONDITION ***************/
+            } else if (paymentStatus === "paid") {
+              row.classList.add("paid-row");
+              paidRows.push(row);
+            }
+          } else {
+            cell.textContent = cellData;
+          }
 
           // Add the fine number as a data attribute to the row
           if (index === 0) {
@@ -130,20 +171,21 @@ function createTable(finesDataArray) {
           }
         });
 
-        /**
-         * Add button "Add Complaint" to each row
-         */
-        const button = displayButton(
-          "Add Complaint",
-          "addButton",
-          () => {
-            if (fineNo) redirectToAddComplaint(fineNo);
-          },
-          fineNo // Pass the fine number as a parameter to the onClick function
-        );
-        row.appendChild(button);
+        if (paymentStatus === "unpaid") {
+          unpaidRows.push(row);
+        }
       }
     );
+
+    // Append unpaid rows first
+    unpaidRows.forEach((row) => {
+      table.appendChild(row);
+    });
+
+    // Append paid rows at the bottom of the table
+    paidRows.forEach((row) => {
+      table.appendChild(row);
+    });
   }
 
   return table;
